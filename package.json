@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Sebo2205/test-bot/issues"
   },
-  "homepage": "https://github.com/Sebo2205/test-bot#readme"
+  "homepage": "https://github.com/Sebo2205/test-bot#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1"
+  }
 }
