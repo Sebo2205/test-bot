@@ -1,0 +1,19 @@
+{
+  "name": "test-bot",
+  "version": "1.0.0",
+  "description": "yes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sebo2205/test-bot.git"
+  },
+  "author": "Sebo2205",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sebo2205/test-bot/issues"
+  },
+  "homepage": "https://github.com/Sebo2205/test-bot#readme"
+}
