@@ -1,23 +1,6 @@
-class Command {
-    /**
-     * command name, required
-     */
-    name;
-    
-    /**
-     * function that will be executed when the command is used
-    */
-    onExecute;
-    
-    constructor (name, onExecute) {
-        this.name = name;
-        this.onExecute = onExecute;
-    }
+const Command = require('./Command');
 
-    toString () {
-        return name;
-    }
-}
+const RestrictedCommand = require('./RestrictedCommand');
 
 const Discord = require('discord.js');
 
@@ -29,26 +12,106 @@ const client = new Discord.Client();
 
 client.commands = new Discord.Collection();
 
-client.commands.set('test', new Command('test', function(msg, args) {
-    msg.channel.send(`${msg.author} ${args}`);
-}));
+commands = {
+    test: new Command('test', function(msg, args) {
+        msg.channel.send(`${msg.author} ${args}`);
+    }, "yes"),
 
-client.commands.set('say', new Command('say', function(msg, args) {
+    say: new Command('say', function(msg, args) {
     
-    if (!args)
-        throw "ree"
+        if (!args)
+            throw "ree"
+        
+        const txt = args.join(" ");
     
-    const txt = args.join(" ");
+        if (!txt)
+            throw "***no***"
+        
+        msg.channel.send(txt);
+        msg.delete();
+    }, "totally not a clone of <@622122161523523624>'s say command"),
 
-    if (!txt)
-        throw "***no***"
+    help: new Command('help', function(msg, _args, cmd) {
+        if (!cmd) {
+            var cmdNames = [];
+            client.commands.forEach(element => {
+                cmdNames.push(`\`${element.name}\``);
+            })
     
-    msg.channel.send(txt);
-    msg.delete();
-}));
+            const embed = {
+                title: "list of commands",
+                description: cmdNames.join(", "),
+                footer: {
+                    text: `use ${prefix}help <command name> for info about a specific command`
+                }
+            }
+    
+            msg.channel.send({embed: embed});
+        } else {
+            if (client.commands.has(cmd.toLowerCase())) {
+    
+                var _cmd = client.commands.get(cmd.toLowerCase());
+                var embed = {
+                    title: "command info",
+                    fields: [
+                        {
+                            name: "name",
+                            value: _cmd.name
+                        },
+                        {
+                            name: "description",
+                            value: _cmd.description || "NA"
+                        }
+                    ]
+                }
+                const restricted = _cmd.toRestrictedCommand();
+
+                if (restricted) {
+                    embed.fields.push({
+                        name: "requires permissions",
+                        value: restricted.requiredPermissions.join("\n")
+                    });
+                }
+                msg.channel.send({embed: embed});
+            } else {
+                throw `the command \`${cmd}\` doesn't exist`;
+            }
+        }
+    }, "shows a list of commands or info about a command"),
+
+    "top-secret-command": new RestrictedCommand("top-secret-command", function(msg) {
+        msg.channel.send("eggs");
+    }, ["ADMINISTRATOR"], "lol"),
+
+    permissions: new Command("permissions", function(msg) {
+        
+        msg.guild.members.fetch(msg.author.id).then(member => {
+            const perms = member.permissions;
+            msg.channel.send({
+                embed: {
+                    title: "permissions",
+                    description: `${perms.toArray().join("\n")}`
+                }
+            })
+            //console.log(perms.toArray());
+        })
 
 
+        
 
+        //Discord.Permissions
+        //Discord.GuildMember
+        //Discord.Guild
+    }, "shows all the permissions you have")
+
+
+}
+
+var cmds = Object.entries(commands);
+
+cmds.forEach(cmd => {
+    client.commands.set(cmd[0], cmd[1]);
+})
 
 client.once('ready', () => {
     console.log('alive lol');
@@ -57,6 +120,17 @@ client.once('ready', () => {
 client.on('message', msg => {
     if (msg.author.bot)
         return;
+    
+    var user = msg.mentions.users.first();
+
+    if (user) {
+        if (user.id == client.user.id) {
+            msg.channel.send(`${msg.author}, my prefix is \`${prefix}\` lol`);
+        }
+
+    }
+    
+    
     if (!msg.content.startsWith(prefix))
         return;
 
@@ -66,10 +140,11 @@ client.on('message', msg => {
     
     try {
         if (command) {
-            command.onExecute(msg, args)
+            command.execute(msg, args)
         }
     } catch (err) {
         error(err, msg.channel);
+        console.log(err);
     }
 })
 
