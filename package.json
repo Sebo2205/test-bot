@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/Sebo2205/test-bot#readme",
   "dependencies": {
+    "@sebo2205/gd-browser-api-module": "file:../../gd-browser-api-module",
     "discord.js": "^12.3.1"
   }
 }

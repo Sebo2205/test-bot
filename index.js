@@ -1,10 +1,13 @@
 const Command = require('./Command');
 
+const api = require('@sebo2205/gd-browser-api-module');
+
 const RestrictedCommand = require('./RestrictedCommand');
 
 const Discord = require('discord.js');
 
 const {token, prefix} = require('../test-bot-config.json');
+const SubcommandCommand = require('./SubcommandCommand');
 
 const client = new Discord.Client();
 
@@ -102,7 +105,46 @@ commands = {
         //Discord.Permissions
         //Discord.GuildMember
         //Discord.Guild
-    }, "shows all the permissions you have")
+    }, "shows all the permissions you have"),
+
+    gd: new Command('gd', async function(msg, args) {
+        var subCmd = args[0];
+
+        if (subCmd == "search") {
+            
+
+            api.search(encodeURIComponent(args.slice(2).join(" ")), {page: args[1]}).then(results => {
+                var levelNames = [];
+                
+                results.data.forEach(level => {
+                    levelNames.push(`${level.name} (${level.id}) by ${level.author} (${level.authorID})`)
+                })
+
+                const embed = {
+                    title : "search results",
+
+                    description: levelNames.join("\n"),
+
+                    footer: {
+                        text: results.ping + "ms"
+                    }
+    
+                }
+                msg.channel.send({embed: embed}).catch(err => {error(err)});
+            })
+
+
+        } 
+    }),
+
+    test2: new SubcommandCommand("test2", [
+        new Command("eggs", function(msg) {msg.channel.send("eggs")}),
+        new Command("egg", function(msg) {msg.channel.send("egg")}),
+        new Command("e", function(msg) {msg.channel.send("eeeeee")}),
+        new Command("h", function(msg) {msg.channel.send("h")}),
+    ])
+
+    
 
 
 }
