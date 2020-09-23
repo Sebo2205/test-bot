@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        * {
+            background-color: rgb(12, 12, 15);  
+            font-family: Arial, Helvetica, sans-serif; 
+            text-align: center;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+        }
+        
+        .commandLink {
+            color: rgb(255, 255, 255);
+            transition-duration: 0.3s;
+            text-decoration: none;
+            font-size: 110%;
+            background-color: rgba(25, 25, 25, 1);
+            text-align: center;
+            border-radius: 10px;
+            border-width: 2px;
+            border-style: solid;
+            border-color: rgba(25, 25, 25, 1);
+            margin: auto;
+            width: 40%;
+
+
+            
+        }
+    
+        .text {
+            color: whitesmoke;
+            text-align: center;
+            
+        }
+    
+
+    
+        .commandLink:hover {
+            color: rgb(0, 0, 0);
+            
+            background-color: rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 1);
+            transform:translateY(-2px);
+            width: 45%;
+
+            
+            
+        }
+        
+        .invite {
+            font-size: small;
+        }
+
+        .commandContainer {
+            display: grid;
+            grid-auto-flow: row;
+            grid-row-gap: 1px;
+            align-self: center;
+            margin: auto;
+            width: 60%;
+        }
+    
+    </style>
+</head>
+<body>
+    <h1 class="text">commands</h1>
+    <br>
+    <div class="commandContainer">
+        {commands}
+    </div>
+    <br>
+    <br>
+    <a href="https://discord.gg/VgwTUjx" class="commandLink invite">totally not advertising</a>
+    <a href="https://www.youtube.com/watch?v=6_b7RDuLwcI" class="commandLink invite">click for a free cookie</a>
+</body>
+

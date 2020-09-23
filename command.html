@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<head>  
+    <style>
+        .text {
+            color: whitesmoke;
+            padding-left: 1rem;
+            text-align: center;
+        }
+    
+        * {
+            background-color: rgb(12, 12, 15);   
+            font-family: Arial, Helvetica, sans-serif;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+        }
+    
+    
+        .commandprop {
+            color: gray;
+            padding-left: 1rem;
+            transition-duration: 0.5s;
+            background-color: rgba(0, 0, 0, 0)
+        }
+     
+    
+        .goback {
+            background-color: rgba(255, 255, 255, 0);
+            color: white;
+            text-decoration-color: rgba(255, 255, 255, 0);
+            font-family: Arial, Helvetica, sans-serif;
+            transition-duration: 0.5s;
+            border-color: transparent;
+            border-width: 0px;
+            border-style: solid;
+            border-radius: 5px;
+        }
+    
+        .goback:hover {
+            
+            background-color: rgba(255, 255, 255, 1);
+            color: black;
+            border-color: white;
+            border-width: 3px;
+ 
+        }
+
+        .cmdlink {
+            color: rgb(0, 140, 255);
+            background-color: transparent;
+            transition-duration: 0.5s;
+            text-decoration-color: transparent;
+            border-style: solid;
+            border-radius: 5px;
+            border-color: rgba(0, 140, 255, 0);
+            border-width: 0px;
+        }
+
+        .cmdlink:hover {
+            border-color: rgba(0, 140, 255, 1);
+            border-width: 3px;
+            background-color: rgb(0, 140, 255);
+            color:rgb(30, 30, 40);
+            padding-left: 1px;
+        }
+
+        .flex-container {
+            display: flex;
+            border-width: 0.1rem;
+            flex-direction: column;
+            width: 45%;
+            border-radius: 10px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: rgb(15, 15, 20);
+            margin: auto;
+            
+        }
+
+        .prop {
+            display:flex;
+            border-width: 0.1rem;
+            background-color: rgb(15, 15, 20);
+            transition-duration: 0.5s;
+            align-content: center;
+        }
+
+        .prop:hover {
+            background-color: rgb(30, 30, 40);
+            padding-left: 1rem;
+        }
+
+        .propname {
+            background-color:rgba(0, 0, 0, 0)
+        }
+
+        .morestuff {
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.6);
+            border-radius: 10px;
+        }
+    
+        
+    
+    
+    </style>
+</head>
+
+<body>
+    <a class="goback" href="/">go back</a>
+    <h1 class="text">command info</h1>
+    <br>
+    
+    <div class="flex-container">
+        <div class="prop">
+            <h4 class="text propname">name</h4>
+                <p class="commandname commandprop">{commandname}</p>
+        </div>
+        <div class="prop">
+            <h4 class="text propname">description</h4>
+                <p class="commanddesc commandprop">{commanddesc}</p>
+        </div>
+        
+{commandperms}
+{subcmds}
+
+    </div>
+
+</body>
+
+

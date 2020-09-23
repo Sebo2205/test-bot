@@ -12,7 +12,7 @@ module.exports = class RestrictedCommand extends Command {
         const member = msg.guild.members.cache.get(msg.author.id);
 
         if (member.hasPermission(this.requiredPermissions)) {
-            this.onExecute(msg, args, ...args);
+            Command.prototype.execute.call(this, msg, args);
         } else {
             throw `missing permissions`;
         }
@@ -20,5 +20,6 @@ module.exports = class RestrictedCommand extends Command {
 
     toRestrictedCommand() {
         return this;
+        
     }
 }

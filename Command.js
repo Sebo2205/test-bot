@@ -12,7 +12,7 @@ module.exports = class Command {
     onExecute;
 
     /**
-     * function that executes the `onExecute` function
+     * function that executes the `onExecute` function,
      * can be overrided to make it only execute the function if a condition is met
      * 
      * example:
@@ -45,6 +45,10 @@ module.exports = class Command {
     }
 
     toRestrictedCommand() {
+        return undefined;
+    }
+
+    toSubcommandCommand() {
         return undefined;
     }
 }
